@@ -373,6 +373,9 @@ function gui_htmlChanged(str) {
 		else if (out == 'wiki') {
 			document.getElementById('html_container').value = output_wiki();
 		}
+		else if (out == 'spip') {
+			document.getElementById('html_container').value = output_spip();
+		}
 		else {
 			document.getElementById('html_container').value = str;
 		}
@@ -559,6 +562,16 @@ function gui_outputChanged() {
 		temp+= 'Please note, that you might need to change the Image url ';
 		temp+= '(<a href="http://www.mediawiki.org/wiki/Extension:ImageMap">read more</a>).'; 
 	}
+	else if (output == 'spip') {
+		temp = 'This is the generated image map SPIP code to use with SPIP ImageMap extension. ';
+		temp+= 'Click into the textarea below and press Ctrl+C to copy the code to your clipboard. ';
+		if (clipboard_enabled) {
+			temp+= 'Alternatively you can use the clipboard icon on the right. ';
+			temp+= '<img src="example1_files/clipboard.gif" onclick="gui_toClipBoard()" style="float: right; margin: 4px; cursor: pointer;"/>';
+		}
+		temp+= 'Please note, that you might need to change the Image url ';
+		temp+= '(<a href="http://spip.net">read more</a>).'; 
+	}
 	else {
 		temp = 'This is the generated image map HTML code. ';
 		temp+= 'Click into the textarea below and press Ctrl+C to copy the code to your clipboard. ';
@@ -661,6 +674,22 @@ function output_css() {
 	//alert(html);
 	return html;
 
+}
+
+function output_spip() {
+	var html, coords;
+        html = '<img|cliquable|maphilight|';
+	for (var i=0; i<myimgmap.areas.length; i++) {
+		if (myimgmap.areas[i]) {
+			if (myimgmap.areas[i].shape && myimgmap.areas[i].shape != 'undefined') {
+				coords = myimgmap.areas[i].lastInput.split(',').join(',');
+                                html+= '|coord' + i + '=' + coords + '|type' + i + '=' + myimgmap.areas[i].shape + '|lien' + i + '=' + myimgmap.areas[i].ahref + ' |alt' + i + '=' + myimgmap.areas[i].aalt;
+			}
+		}
+	}
+	html+= '>';
+	//alert(html);
+	return html;
 }
 
 /**
