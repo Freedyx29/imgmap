@@ -678,7 +678,7 @@ function output_css() {
 
 function output_spip() {
 	var html, coords;
-        html = '<img|cliquable|maphilight|';
+        html = '<imgNNN|cliquable|maphilight|';
 	for (var i=0; i<myimgmap.areas.length; i++) {
 		if (myimgmap.areas[i]) {
 			if (myimgmap.areas[i].shape && myimgmap.areas[i].shape != 'undefined') {
